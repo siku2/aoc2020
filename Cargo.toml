@@ -1,0 +1,8 @@
+[package]
+name = "aoc2020"
+version = "0.1.0"
+authors = ["Simon Berger <simon@siku2.io>"]
+edition = "2018"
+
+[dependencies]
+yew = { git = "https://github.com/yewstack/yew", rev = "2c60d596e74b7b22e5d19fff014d03059278f84c" }
