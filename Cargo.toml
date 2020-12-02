@@ -5,4 +5,6 @@ authors = ["Simon Berger <simon@siku2.io>"]
 edition = "2018"
 
 [dependencies]
+lazy_static = "1.4"
+regex = "1.4"
 yew = { git = "https://github.com/yewstack/yew", rev = "2c60d596e74b7b22e5d19fff014d03059278f84c" }

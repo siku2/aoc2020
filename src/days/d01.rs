@@ -1,5 +1,4 @@
-use std::collections::HashSet;
-use yew::prelude::*;
+use std::{collections::HashSet, num::ParseIntError};
 
 #[derive(Eq, PartialEq)]
 struct Solution {
@@ -45,38 +44,16 @@ impl Solution {
     }
 }
 
-struct Day01 {
-    link: ComponentLink<Self>,
-    expense_report: Vec<usize>,
-}
-impl Component for Day01 {
-    type Message = ();
-    type Properties = ();
-
-    fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self {
-            link,
-            expense_report: Vec::default(),
-        }
-    }
-
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        unimplemented!()
-    }
-
-    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
-        false
-    }
-
-    fn view(&self) -> Html {
-        html! {}
-    }
+fn parse_input(input: &str) -> Result<HashSet<u16>, ParseIntError> {
+    input
+        .split_whitespace()
+        .map(|n| n.parse())
+        .collect::<Result<_, _>>()
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::iter::FromIterator;
 
     const EXAMPLE_INPUT: &str = r#"
         1721
@@ -87,15 +64,8 @@ mod tests {
         1456
     "#;
 
-    fn example_input<T>() -> T
-    where
-        T: FromIterator<u16>,
-    {
-        EXAMPLE_INPUT
-            .split_whitespace()
-            .map(|n| n.parse())
-            .collect::<Result<T, _>>()
-            .expect("failed to parse example input")
+    fn example_input() -> HashSet<u16> {
+        parse_input(EXAMPLE_INPUT).expect("failed to parse input")
     }
 
     #[test]
