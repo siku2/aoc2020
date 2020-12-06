@@ -1,19 +1,15 @@
-#![warn(clippy::pedantic)]
-#![allow(dead_code, clippy::cast_possible_truncation)]
-
 use yew::prelude::*;
 
-mod components;
-mod days;
-mod pages;
-mod router;
-mod services;
-mod utils;
+fn render_day(day: usize) -> Html {
+    html! {
+        <div>
+            { day }
+        </div>
+    }
+}
 
-use router::Router;
-
-struct Model;
-impl Component for Model {
+pub struct Calendar;
+impl Component for Calendar {
     type Message = ();
     type Properties = ();
 
@@ -30,15 +26,11 @@ impl Component for Model {
     }
 
     fn view(&self) -> Html {
+        let days = (1..=25).map(render_day);
         html! {
-            <>
-                <h1>{ "Advent of Code 2020" }</h1>
-                <Router />
-            </>
+            <div class="calendar">
+                { for days }
+            </div>
         }
     }
-}
-
-fn main() {
-    yew::start_app::<Model>();
 }

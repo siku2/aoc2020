@@ -71,12 +71,12 @@ mod tests {
     #[test]
     fn first() {
         let sol = Solution::solve_n(&example_input(), 2020, 2).expect("failed to solve");
-        assert_eq!(sol.result, 514579);
+        assert_eq!(sol.result, 514_579);
     }
 
     #[test]
     fn second() {
         let sol = Solution::solve_n(&example_input(), 2020, 3).expect("failed to solve");
-        assert_eq!(sol.result, 241861950);
+        assert_eq!(sol.result, 241_861_950);
     }
 }

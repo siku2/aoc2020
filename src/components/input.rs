@@ -1,19 +1,7 @@
-#![warn(clippy::pedantic)]
-#![allow(dead_code, clippy::cast_possible_truncation)]
-
 use yew::prelude::*;
 
-mod components;
-mod days;
-mod pages;
-mod router;
-mod services;
-mod utils;
-
-use router::Router;
-
-struct Model;
-impl Component for Model {
+pub struct Raw;
+impl Component for Raw {
     type Message = ();
     type Properties = ();
 
@@ -31,14 +19,7 @@ impl Component for Model {
 
     fn view(&self) -> Html {
         html! {
-            <>
-                <h1>{ "Advent of Code 2020" }</h1>
-                <Router />
-            </>
+            <input />
         }
     }
-}
-
-fn main() {
-    yew::start_app::<Model>();
 }
