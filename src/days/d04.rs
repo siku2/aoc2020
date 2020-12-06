@@ -26,9 +26,8 @@ struct Passport<'a> {
     cid: Option<&'a str>,
 }
 impl<'a> Passport<'a> {
-    #[allow(clippy::unnecessary_wraps)]
-    fn get_mut_value_slot(&mut self, key: &str) -> Option<&mut Option<&'a str>> {
-        Some(match key {
+    fn set_key(&mut self, key: &str, value: &'a str) -> bool {
+        let slot = match key {
             "byr" => &mut self.byr,
             "iyr" => &mut self.iyr,
             "eyr" => &mut self.eyr,
@@ -37,17 +36,11 @@ impl<'a> Passport<'a> {
             "ecl" => &mut self.ecl,
             "pid" => &mut self.pid,
             "cid" => &mut self.cid,
-            _ => return None,
-        })
-    }
+            _ => return false,
+        };
 
-    fn set_key(&mut self, key: &str, value: &'a str) -> bool {
-        if let Some(slot) = self.get_mut_value_slot(key) {
-            slot.replace(value);
-            true
-        } else {
-            false
-        }
+        slot.replace(value);
+        true
     }
 
     fn set_from_pair(&mut self, pair: &'a str) -> bool {
@@ -92,17 +85,13 @@ impl<'a> Passport<'a> {
             static ref HCL_RE: Regex = Regex::new(r#"^#[0-9a-f]{6}$"#).unwrap();
         }
 
-        let hgt_valid = if let Some(hgt) = self.hgt {
-            if let Some(v) = hgt.strip_suffix("cm") {
-                numeric_and_in_range(Some(v), 150..=193)
-            } else if let Some(v) = hgt.strip_suffix("in") {
-                numeric_and_in_range(Some(v), 59..=76)
-            } else {
-                false
-            }
-        } else {
-            false
-        };
+        let hgt_valid = self.hgt.map_or(false, |hgt| {
+            hgt.strip_suffix("cm")
+                .map_or(false, |v| numeric_and_in_range(Some(v), 150..=193))
+                || hgt
+                    .strip_suffix("in")
+                    .map_or(false, |v| numeric_and_in_range(Some(v), 59..=76))
+        });
         let hcl_valid = self.hcl.map_or(false, |hcl| HCL_RE.is_match(hcl));
 
         hgt_valid
@@ -122,7 +111,7 @@ fn parse_input(inp: &str) -> Option<Vec<Passport>> {
     let inp = inp.trim();
     let mut passports = Vec::default();
     let mut passport = Passport::default();
-    for line in inp.lines().map(|s| s.trim()) {
+    for line in inp.lines().map(str::trim) {
         if line.is_empty() {
             passports.push(std::mem::take(&mut passport));
             continue;

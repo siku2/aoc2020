@@ -67,10 +67,9 @@ fn parse_input(s: &str) -> Option<Entries> {
             if s.is_empty() {
                 None
             } else {
-                Some(s)
+                Some(Entry::from_str(s))
             }
         })
-        .map(Entry::from_str)
         .collect::<Option<_>>()
 }
 

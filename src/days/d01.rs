@@ -7,7 +7,7 @@ struct Solution {
 }
 impl Solution {
     fn from_entries(entries: Vec<u16>) -> Self {
-        let result = entries.iter().copied().map(|e| e as u32).product();
+        let result = entries.iter().copied().map(u32::from).product();
         Self { entries, result }
     }
 
@@ -47,7 +47,7 @@ impl Solution {
 fn parse_input(input: &str) -> Result<HashSet<u16>, ParseIntError> {
     input
         .split_whitespace()
-        .map(|n| n.parse())
+        .map(str::parse)
         .collect::<Result<_, _>>()
 }
 

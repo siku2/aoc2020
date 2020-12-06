@@ -1,4 +1,5 @@
-#![allow(dead_code)]
+#![warn(clippy::pedantic)]
+#![allow(dead_code, clippy::cast_possible_truncation)]
 
 use yew::prelude::*;
 

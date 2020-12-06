@@ -26,17 +26,14 @@ fn first_part(seats: impl IntoIterator<Item = SeatId>) -> Option<SeatId> {
 
 fn second_part(mut seats: Vec<SeatId>) -> Option<SeatId> {
     seats.sort_unstable();
-    seats
-        .windows(2)
-        .filter_map(|win| {
-            let (prev, next) = (win[0], win[1]);
-            if next - prev > 1 {
-                Some(prev + 1)
-            } else {
-                None
-            }
-        })
-        .next()
+    seats.windows(2).find_map(|win| {
+        let (prev, next) = (win[0], win[1]);
+        if next - prev > 1 {
+            Some(prev + 1)
+        } else {
+            None
+        }
+    })
 }
 
 #[cfg(test)]
