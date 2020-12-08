@@ -17,7 +17,7 @@ impl<'a> BagContents<'a> {
     }
 }
 
-fn parse_bag<'a>(s: &'a str) -> Option<(&'a str, Vec<BagContents<'a>>)> {
+fn parse_bag(s: &str) -> Option<(&str, Vec<BagContents>)> {
     let mut it = s.split(" bags contain ");
     let color = it.next()?;
     let raw_contents = it.next()?.strip_suffix('.')?;
@@ -33,7 +33,7 @@ fn parse_bag<'a>(s: &'a str) -> Option<(&'a str, Vec<BagContents<'a>>)> {
     Some((color, contents))
 }
 
-fn parse_input<'a>(inp: &'a str) -> Option<HashMap<&'a str, Vec<BagContents<'a>>>> {
+fn parse_input(inp: &str) -> Option<HashMap<&str, Vec<BagContents>>> {
     inp.trim()
         .lines()
         .map(|line| parse_bag(line.trim()))
