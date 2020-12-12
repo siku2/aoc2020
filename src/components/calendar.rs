@@ -1,10 +1,16 @@
+use crate::services::routing::Route;
+use yew::events::MouseEvent;
 use yew::prelude::*;
 
 fn render_day(day: usize) -> Html {
+    let route = Route::Day(day);
+    let onclick = route.into_navigate_callback().reform(|e: MouseEvent| {
+        e.prevent_default();
+    });
     html! {
-        <div>
+        <a href=route.into_abs_path() onclick=onclick>
             { day }
-        </div>
+        </a>
     }
 }
 
@@ -28,7 +34,7 @@ impl Component for Calendar {
     fn view(&self) -> Html {
         let days = (1..=25).map(render_day);
         html! {
-            <div class="calendar">
+            <div>
                 { for days }
             </div>
         }

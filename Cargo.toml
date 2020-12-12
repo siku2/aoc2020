@@ -14,4 +14,4 @@ yew = { git = "https://github.com/yewstack/yew", rev = "2c60d596e74b7b22e5d19fff
 
 [dependencies.web-sys]
 version = "0.3"
-features = ["History", "Location", "PopStateEvent", "Window"]
+features = ["History", "Location", "Node", "PopStateEvent", "Url", "Window"]
