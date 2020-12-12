@@ -1,4 +1,6 @@
 use std::{collections::HashSet, num::ParseIntError};
+use web_sys::HtmlTextAreaElement;
+use yew::prelude::*;
 
 #[derive(Eq, PartialEq)]
 struct Solution {
@@ -49,6 +51,104 @@ fn parse_input(input: &str) -> Result<HashSet<u16>, ParseIntError> {
         .split_whitespace()
         .map(str::parse)
         .collect::<Result<_, _>>()
+}
+
+pub enum Msg {
+    Solve,
+    SetTarget(InputData),
+    SetN(InputData),
+}
+
+pub struct Page {
+    link: ComponentLink<Self>,
+    input_area: NodeRef,
+    target: u16,
+    n: u8,
+    solution: Option<Solution>,
+}
+impl Page {
+    fn render_solution(&self) -> Html {
+        if let Some(solution) = &self.solution {
+            html! { <code>{ &solution.result }</code> }
+        } else {
+            html! {}
+        }
+    }
+}
+impl Component for Page {
+    type Message = Msg;
+    type Properties = ();
+
+    fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
+        Self {
+            link,
+            input_area: NodeRef::default(),
+            target: 2020,
+            n: 2,
+            solution: None,
+        }
+    }
+
+    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        match msg {
+            Msg::Solve => {
+                let input_area = self.input_area.cast::<HtmlTextAreaElement>().unwrap();
+                let input = parse_input(&input_area.value());
+                if let Ok(input) = input {
+                    self.solution = Solution::solve_n(&input, self.target, self.n);
+                    if self.solution.is_some() {
+                        input_area.set_custom_validity("");
+                    } else {
+                        input_area.set_custom_validity("failed to solve");
+                    }
+                } else {
+                    self.solution = None;
+                    input_area.set_custom_validity("failed to parse");
+                }
+
+                true
+            }
+            Msg::SetTarget(data) => {
+                if let Ok(value) = data.value.parse() {
+                    self.target = value;
+                    true
+                } else {
+                    false
+                }
+            }
+            Msg::SetN(data) => {
+                if let Ok(value) = data.value.parse() {
+                    self.n = value;
+                    true
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
+    }
+
+    fn view(&self) -> Html {
+        let Self {
+            link,
+            input_area,
+            target,
+            n,
+            ..
+        } = &self;
+        html! {
+            <>
+                <input type="number" min="0" value=target oninput=link.callback(Msg::SetTarget) />
+                <input type="number" min="0" max="10" value=n oninput=link.callback(Msg::SetN) />
+                <textarea ref=input_area.clone() />
+                <button onclick=link.callback(|_| Msg::Solve)>{ "solve" }</button>
+                { self.render_solution() }
+            </>
+        }
+    }
 }
 
 #[cfg(test)]

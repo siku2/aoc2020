@@ -1,14 +1,20 @@
 use crate::services::routing::Route;
-use yew::events::MouseEvent;
-use yew::prelude::*;
+use yew::{events::MouseEvent, prelude::*};
 
 fn render_day(day: usize) -> Html {
     let route = Route::Day(day);
     let onclick = route.into_navigate_callback().reform(|e: MouseEvent| {
         e.prevent_default();
     });
+
+    let class = if day >= crate::days::AVAILABLE_DAYS {
+        "unavailable".to_owned()
+    } else {
+        String::new()
+    };
+
     html! {
-        <a href=route.into_abs_path() onclick=onclick>
+        <a class=class href=route.into_abs_path() onclick=onclick>
             { day }
         </a>
     }

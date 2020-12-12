@@ -1,0 +1,328 @@
+button {
+  background-color: transparent;
+  border: 0;
+  color: #009900;
+  display: inline-block;
+  outline: none;
+  padding: 0;
+  text-decoration: none;
+
+  &::before {
+    content: "[";
+  }
+  &::after {
+    content: "]";
+  }
+
+  &:hover,
+  &:focus {
+    color: #99ff99;
+  }
+}
+
+/// Advend of Code style
+// blatantly stolen from the official website, to be updated with custom styling
+body {
+  background: #0f0f23;
+  color: #cccccc;
+  font-family: "Source Code Pro", monospace;
+  font-size: 14pt;
+  min-width: 60em;
+}
+
+img {
+  border: 0;
+}
+
+a {
+  outline: 0;
+}
+
+main,
+figure,
+figcaption {
+  display: block;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+header,
+main {
+  -webkit-text-size-adjust: none;
+}
+
+a {
+  text-decoration: none;
+  color: #009900;
+
+  &:hover,
+  &:focus {
+    color: #99ff99;
+  }
+}
+
+h1,
+h2 {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+code {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+
+  &:before {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    display: block;
+    left: -2px;
+    right: -2px;
+    top: 3px;
+    bottom: 0px;
+    border: 1px solid #333340;
+    background: #10101a;
+  }
+}
+
+header {
+  white-space: nowrap;
+  cursor: default;
+  z-index: 100;
+  margin-bottom: 2em;
+
+  h1 {
+    display: inline-block;
+    margin: 0;
+    padding-right: 1em;
+
+    a,
+    span {
+      display: inline-block;
+      text-decoration: none;
+      color: #00cc00;
+      text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+    }
+
+    a {
+      &:hover,
+      &:focus {
+        color: #99ff99;
+        text-shadow: 0 0 2px #99ff99, 0 0 5px #99ff99;
+      }
+    }
+
+    &.title-event .title-event-wrap {
+      opacity: 0.33;
+      white-space: pre;
+    }
+  }
+
+  .user {
+    display: inline-block;
+    padding-left: 1em;
+  }
+
+  nav {
+    display: inline-block;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: inline-block;
+    }
+
+    li {
+      display: inline-block;
+      padding: 0 0.6em;
+    }
+
+    a {
+      display: inline-block;
+      text-decoration: none;
+      outline: none;
+    }
+  }
+}
+
+input[type="text"] {
+  background: transparent;
+  color: inherit;
+  border: 1px solid #666666;
+  background: #10101a;
+  padding: 0 2px;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+
+textarea {
+  background: transparent;
+  color: inherit;
+  border: 1px solid #666666;
+  background: #10101a;
+  padding: 0 2px;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  vertical-align: top;
+}
+
+label img {
+  vertical-align: bottom;
+  position: relative;
+  top: -3px;
+  margin-right: 0.3em;
+}
+
+input {
+  &[type="radio"] {
+    display: none;
+
+    ~ span {
+      cursor: pointer;
+      display: inline-block;
+
+      &:before {
+        content: "( ) ";
+      }
+
+      &:hover,
+      &:focus {
+        background-color: #19193b;
+      }
+    }
+
+    &:checked ~ span {
+      color: #ffffff;
+
+      &:before {
+        content: "(O) ";
+      }
+    }
+  }
+
+  &[type="checkbox"] {
+    display: none;
+
+    ~ span {
+      cursor: pointer;
+      display: inline-block;
+
+      &:before {
+        content: "[ ] ";
+      }
+
+      &:hover,
+      &:focus {
+        background-color: #19193b;
+      }
+    }
+
+    &:checked ~ span {
+      color: #ffffff;
+
+      &:before {
+        content: "[X] ";
+      }
+    }
+
+    &:disabled ~ span {
+      opacity: 0.3;
+      cursor: default;
+
+      &:before {
+        content: "[-] ";
+      }
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  &[type="submit"] {
+    background: transparent;
+    border: 0;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
+    color: #009900;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: #99ff99;
+    }
+  }
+}
+
+*::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+article {
+  width: 45em;
+  margin-bottom: 2em;
+  margin-top: 2em;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  h2 {
+    color: #ffffff;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    white-space: nowrap;
+
+    + * {
+      margin-top: 0;
+    }
+  }
+
+  em {
+    color: #ffffff;
+    font-style: normal;
+    text-shadow: 0 0 5px #ffffff;
+
+    &.star {
+      color: #ffff66;
+      font-style: normal;
+      text-shadow: 0 0 5px #ffff66;
+    }
+  }
+
+  a {
+    white-space: nowrap;
+  }
+
+  .aside {
+    opacity: 0.6;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    padding-left: 2.5em;
+    position: relative;
+
+    &:before {
+      content: "\00a0\00a0-\00a0";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}

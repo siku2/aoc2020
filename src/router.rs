@@ -1,5 +1,5 @@
 use crate::{
-    pages::home::Home,
+    pages::{home::Home, puzzle_unavailable::PuzzleUnavailable},
     services::routing::{self, Route},
 };
 use yew::prelude::*;
@@ -40,13 +40,13 @@ impl Component for Router {
     }
 
     fn view(&self) -> Html {
-        match &self.route {
+        match self.route {
             Route::Home => {
                 html! { <Home /> }
             }
-            Route::Day(_day) => {
-                html! {}
-            }
+            Route::Day(day) => crate::days::render_day(day).unwrap_or_else(|| {
+                html! { <PuzzleUnavailable day=day /> }
+            }),
             Route::NotFound => {
                 html! { "404" }
             }
