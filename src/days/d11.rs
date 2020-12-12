@@ -79,7 +79,7 @@ impl Layout {
             .count()
     }
 
-    #[allow(clippy::cast_possible_wrap, clippy::clippy::cast_sign_loss)]
+    #[allow(clippy::cast_possible_wrap, clippy::cast_sign_loss)]
     fn raycast_steps<'a>(
         &'a self,
         row: usize,
