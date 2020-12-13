@@ -10,8 +10,9 @@ mod d09;
 mod d10;
 mod d11;
 mod d12;
+mod d13;
 
-pub const AVAILABLE_DAYS: usize = 12;
+pub const AVAILABLE_DAYS: usize = 13;
 
 pub fn render_day(day: usize) -> Option<yew::Html> {
     macro_rules! builder {
