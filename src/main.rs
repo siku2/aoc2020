@@ -2,7 +2,6 @@
 // `needless_lifetimes` currently needed because the rules are different between stable and nightly
 #![allow(
     dead_code,
-    clippy::cast_possible_truncation,
     clippy::needless_lifetimes
 )]
 

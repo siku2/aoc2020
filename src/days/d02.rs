@@ -7,6 +7,7 @@ struct Policy {
     max: u16,
 }
 impl Policy {
+    #[allow(clippy::cast_possible_truncation)]
     fn valid_count(&self, password: &str) -> bool {
         let count = password.matches(self.letter).count() as u16;
         (self.min..=self.max).contains(&count)

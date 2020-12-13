@@ -12,6 +12,7 @@ fn parse_seat_id(s: &str) -> SeatId {
         .fold(0, |i, b| (i << 1) + b as SeatId)
 }
 
+#[allow(clippy::cast_possible_truncation)]
 fn get_seat_pos(id: SeatId) -> (u8, u8) {
     ((id >> COL_BITS) as u8, (id & (TOTAL_COLS - 1)) as u8)
 }
