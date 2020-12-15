@@ -1,9 +1,6 @@
 #![warn(clippy::pedantic)]
 // `needless_lifetimes` currently needed because the rules are different between stable and nightly
-#![allow(
-    dead_code,
-    clippy::needless_lifetimes
-)]
+#![allow(dead_code, clippy::needless_lifetimes)]
 
 use yew::prelude::*;
 
