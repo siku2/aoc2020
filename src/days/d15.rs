@@ -49,6 +49,7 @@ mod tests {
         assert_eq!(first_part(nums), 436);
     }
 
+    #[cfg(feature = "tests-slow")]
     #[test]
     fn second() {
         let nums = parse_input(EXAMPLE_INPUT).expect("failed to parse input");
