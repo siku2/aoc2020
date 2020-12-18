@@ -135,6 +135,7 @@ mod tests {
         assert_eq!(perform_some_cycles(active_cubes, false), 112);
     }
 
+    #[cfg(feature = "tests-slow")]
     #[test]
     fn second() {
         let active_cubes = parse_input(EXAMPLE_INPUT);
