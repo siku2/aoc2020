@@ -119,7 +119,6 @@ fn parse_input(inp: &str) -> Option<Vec<Passport>> {
 
         for pair in line.split_whitespace() {
             if !passport.set_from_pair(pair) {
-                println!("{} | {}", pair, line);
                 return None;
             }
         }
