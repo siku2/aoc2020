@@ -501,6 +501,8 @@ fn second_part(image: &mut AlignedImage) -> Option<usize> {
     if let Some(c) = image.count_black_pixels_without_sea_monsters_any_rotation() {
         return Some(c);
     }
+    // flip back and try horizontally flipped
+    image.flip_x();
     image.flip_y();
     if let Some(c) = image.count_black_pixels_without_sea_monsters_any_rotation() {
         return Some(c);
