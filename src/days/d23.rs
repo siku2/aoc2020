@@ -40,6 +40,7 @@ impl FakeLinkedList {
             self.labels[prev_label as usize] = label;
             prev_label = label;
         }
+        self.last = prev_label;
         self.labels[prev_label as usize] = self.first;
     }
 
@@ -92,8 +93,8 @@ impl FakeLinkedList {
         // a -> b remains true
     }
 
-    unsafe fn after_unchecked(&self, label: u32) -> u32 {
-        *self.labels.get_unchecked(label as usize)
+    fn after(&self, label: u32) -> Option<u32> {
+        self.labels.get(label as usize).copied()
     }
 }
 
@@ -119,7 +120,7 @@ fn simulate_moves(cups: &mut FakeLinkedList, moves_to_simulate: usize) -> Option
         }
 
         unsafe { cups.move_three_unchecked(current_label, dest_label) };
-        current_label = unsafe { cups.after_unchecked(current_label) };
+        current_label = cups.after(current_label).unwrap();
     }
 
     Some(())
@@ -139,9 +140,7 @@ fn first_part(cups: &mut FakeLinkedList) -> Option<String> {
 fn second_part(cups: &mut FakeLinkedList) -> Option<u64> {
     let max_label = cups.max()?;
     cups.resize(1_000_000);
-    unsafe {
-        cups.append_unchecked(max_label + 1..=1_000_000);
-    };
+    unsafe { cups.append_unchecked(max_label + 1..=1_000_000) };
 
     simulate_moves(cups, 10_000_000)?;
 
